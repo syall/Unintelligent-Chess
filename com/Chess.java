@@ -52,11 +52,6 @@ public class Chess {
                 }
                 // Move a Piece
                 else if(input.equals("move")) {
-                    /** 
-                     * TODO: Move
-                     * - Choose a Space with Playing's Piece
-                     * - Choose a Space to move with Playing's Piece
-                     */
 
                     System.out.println("Choose a Piece:");
                     
@@ -93,7 +88,7 @@ public class Chess {
                     // If Piece belongs to Player playing
                     System.out.println(
                         "Are you sure you want to move this piece?: " + 
-                        n + 
+                        n.moves + 
                         "(" + x + "," + y + ")"
                     );
                     int confirm = 0;
@@ -112,7 +107,34 @@ public class Chess {
                             confirm = 1;
                         }
                     } while (confirm == 0);
-                    
+
+                    // Pawn Special Cases
+                    if(n.type == 'p') {
+                        /** TODO: En Passant
+                         *  If passant is true, check for possible En Passant
+                         *  If passant is possible, confirm if they want to En Passant
+                         *  List all possible En Passant for Piece n
+                         */ 
+                        if(board.passant) {
+                        
+                        }
+                        /** TODO: Move 2 Spaces on First Move
+                         *  If the pawn has not moved, prompt if they want to move 2 spaces
+                         */
+                        else if(!n.moved) {
+
+                        }
+                    }
+
+                    /** TODO: Castle
+                     *  Check for possible Castle
+                     *  If Castle is possible, confirm if they want to En Passant
+                     *  List all possible Castles for Piece n
+                     */ 
+                    if(n.type == 'k') {
+
+                    }
+
                     System.out.println("Choose a Destination:");
                     
                     // X-Coordinate of Destination
@@ -141,7 +163,15 @@ public class Chess {
                     } while(!(y >= 0 && y <= 7));
 
                     // If Destination is Invalid
-                    if(!playing.pieces.get(hash).moves.contains(new Point(x, y))) {
+                    boolean contain = false;
+                    for(Point p : n.moves) {
+                        if(p.row == x && p.col == y) {
+                            contain = true;
+                            break;
+                        }
+                    }
+
+                    if(!contain) {
                         System.out.println("Invalid Destination.");
                         continue;
                     }
@@ -151,13 +181,25 @@ public class Chess {
                     if(waiting.pieces.containsKey(oppHash)) {
                         waiting.pieces.remove(oppHash);
                     }
+
                     // Remap Player playing's piece
-                    playing.pieces.put(oppHash, playing.pieces.get(hash));
+                    playing.pieces.put(oppHash, playing.pieces.remove(hash));
 
                     // Set moved of the piece moved to true
                     playing.pieces.get(oppHash).moved = true;
 
+                    // Pawn Promotion
+                    if(playing.pieces.get(oppHash).type == 'p') {
+                        if ((playing.pieces.get(oppHash).color == 'w' && x == 7) ||
+                            (playing.pieces.get(oppHash).color == 'b' && x == 0)) {
+                            // TODO: Pawn Promotion Prompt
+                            char type = '?';
+                            playing.pieces.get(oppHash).type = type;
+                        }
+                    }
+
                     // Move Completed!
+                    System.out.println();
                     plays = 1;
                 }
                 // Help
@@ -219,6 +261,9 @@ public class Chess {
                 }
                 board.turn--;
             }
+
+            
+
             // Increase Turn Count
             board.turn++;
         }

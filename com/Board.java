@@ -8,6 +8,7 @@ public class Board {
     public int turn = 0;
     public Player white;
     public Player black;
+    public boolean passant = false;
 
     public Board() {
         white = new Player('w');
@@ -42,8 +43,11 @@ public class Board {
         return output;
     }
 
-    // TODO: Check
-    public static boolean check() {
+    /** 
+     * TODO: Check
+     * 
+     */ 
+    public boolean check() {
         
         return false;
     }

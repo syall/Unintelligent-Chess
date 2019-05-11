@@ -21,19 +21,16 @@ public class Piece {
         return type + "-" + color;
     }
 
-    // TODO: Get Legal Moves
+    /**
+     * TODO: Get Legal Moves
+     * - Horizontal
+     * - Vertical
+     * - Diagonal
+     * - Knights
+     */ 
     public boolean getMoves() {
-        
+        moves.add(new Point(2, 0));
         return true;
     }
 
-    // TODO: Check for Castle
-    public void castle() {
-
-    }
-
-    // TODO: Check for En Passant
-    public void passant() {
-        
-    }
 }

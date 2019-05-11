@@ -52,9 +52,9 @@ public class Player {
         pieces.put(new Point(row, 4).hashCode(), new Piece('k', color));
 
         // Set Legal Moves for all Pieces
-        pieces.forEach((k, v) -> {
-            canMove = canMove || v.getMoves();
-        });
+        for(Integer key : pieces.keySet()) {
+            canMove = pieces.get(key).getMoves() || canMove;
+        }
 
     }
 
