@@ -1,4 +1,4 @@
-package parts;
+package archive.ver2.parts;
 
 import java.util.ArrayList;
 
@@ -40,7 +40,7 @@ public class Piece {
         this.name = name;
     }
 
-    // TODO: Moves
+    // TO DO: Moves
     public ArrayList<Point> moves(Piece ourKing, ArrayList<Piece> opp, boolean passant)
     // = Positions in the 2 Lists and !check()
     {
@@ -319,53 +319,53 @@ public class Piece {
         return false;
     }
 
-    // TODO: Diagonal
+    // TO DO: Diagonal
     public ArrayList<Point> diagonal(Piece ourKing, ArrayList<Piece> our, ArrayList<Piece> opp) {
         ArrayList<Point> list = new ArrayList<>();
 
         return list;
     }
 
-    // TODO: Diagonal Check
+    // TO DO: Diagonal Check
     public boolean diagonalCheck(ArrayList<Piece> our, ArrayList<Piece> opp) {
 
         return false;
     }
 
-    // TODO: Knight
+    // TO DO: Knight
     public ArrayList<Point> knight(Piece ourKing, ArrayList<Piece> our, ArrayList<Piece> opp) {
         ArrayList<Point> list = new ArrayList<>();
 
         return list;
     }
 
-    // TODO: Knight Check
+    // TO DO: Knight Check
     public boolean knightCheck(ArrayList<Piece> our, ArrayList<Piece> opp) {
     
         return false;
     }
 
-    // TODO: Pawn
+    // TO DO: Pawn
     public ArrayList<Point> pawn(Piece ourKing, ArrayList<Piece> our, ArrayList<Piece> opp) {
         ArrayList<Point> list = new ArrayList<>();
 
         return list;
     }
 
-    // TODO: Pawn Check
+    // TO DO: Pawn Check
     public boolean pawnCheck(ArrayList<Piece> our, ArrayList<Piece> opp) {
     
         return false;
     }
 
-    // TODO: Passant
+    // TO DO: Passant
     public ArrayList<Point> passant(Piece ourKing, ArrayList<Piece> our, ArrayList<Piece> opp) {
     ArrayList<Point> list = new ArrayList<>();
 
         return list;
     }
 
-    // TODO: Castle
+    // TO DO: Castle
     public ArrayList<Point> castle(Piece ourKing, ArrayList<Piece> our, ArrayList<Piece> opp) {
         ArrayList<Point> list = new ArrayList<>();
     

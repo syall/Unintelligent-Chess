@@ -1,4 +1,4 @@
-package parts;
+package archive.ver2.parts;
 import java.util.ArrayList;
 
 public class Combo {

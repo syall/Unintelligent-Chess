@@ -1,4 +1,4 @@
-package parts;
+package archive.ver2.parts;
 public class Point {
     int x;
     int y;

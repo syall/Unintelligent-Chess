@@ -1,6 +1,10 @@
+package archive.ver1;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+
+import archive.ver1.Pieces.*;
 
 public class PlayChess {
 

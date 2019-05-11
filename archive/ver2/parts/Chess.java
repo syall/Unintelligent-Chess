@@ -1,4 +1,4 @@
-package parts;
+package archive.ver2.parts;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -205,7 +205,7 @@ public class Chess {
         return null;
     }
 
-    // TODO: Check
+    // TO DO: Check
     public static boolean check(Piece king, ArrayList<Piece> our, ArrayList<Piece> opp)
     // opposite side's king search outward 
     {
