@@ -40,4 +40,3 @@ We have type to determine what moves to add into moves as well as a moved boolea
   * getMoves
   * castle
   * passant
-
