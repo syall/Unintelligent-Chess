@@ -1,3 +1,5 @@
 .vscode*
 .chess.code-workspace
-.markdownlint.json
+*.json
+*.class
+*.jar

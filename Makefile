@@ -1,14 +1,15 @@
 all: play
 
-Chess: parts/Chess.java
-	javac parts/Chess.java
+build: com/Chess.java
+	javac com/Chess.java
 
-play: Chess
-	java parts/Chess
+play: build
+	java com/Chess
 	make clean
 
-jar: Chess parts/
-	jar cmf parts/Chess.mf Chess.jar parts/
+jar: build com/
+	jar cmvf com/Chess.mf Chess.jar com/
 
 clean:
 	find . -name "*.class" -type f -delete
+	find . -perm +100 -type f -delete
