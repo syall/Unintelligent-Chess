@@ -22,8 +22,9 @@ public class Piece {
     }
 
     // TODO: Get Legal Moves
-    public void getMoves() {
+    public boolean getMoves() {
         
+        return true;
     }
 
     // TODO: Check for Castle

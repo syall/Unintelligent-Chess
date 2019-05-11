@@ -10,6 +10,7 @@ import java.util.Hashtable;
 public class Player {
 
     public char color;
+    public boolean canMove = true;
     public Hashtable<Integer, Piece> pieces = new Hashtable<>();
 
     // Initialize Player Color and Pieces
@@ -49,6 +50,11 @@ public class Player {
 
         // King
         pieces.put(new Point(row, 4).hashCode(), new Piece('k', color));
+
+        // Set Legal Moves for all Pieces
+        pieces.forEach((k, v) -> {
+            canMove = canMove || v.getMoves();
+        });
 
     }
 
