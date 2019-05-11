@@ -12,4 +12,3 @@ jar: build com/
 
 clean:
 	find . -name "*.class" -type f -delete
-	find . -perm +100 -type f -delete

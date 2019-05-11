@@ -4,7 +4,9 @@ Simple Chess implementation with Object Oriented Programming in mind.
 
 Design is especially considered with the black box concept.
 
-## Board
+## Objects
+
+### Board
 
 The Board will hold all the game logic of valid moves and check/checkmate/stalemate.
 
@@ -17,7 +19,7 @@ Checks will reset all moves in Players.
 * Turn Count
 * Players / Checks Loop
 
-## Player
+### Player
 
 Players will have their Pieces.
 
@@ -26,7 +28,7 @@ Players contain all the decisions with input will be black boxed.
 * HashTable< Piece > pieces
 * Decisions in an Input Loop
 
-## Piece
+### Piece
 
 We assume the Piece is dumb and the moves does not account for checks.
 
@@ -40,3 +42,25 @@ We have type to determine what moves to add into moves as well as a moved boolea
   * getMoves
   * castle
   * passant
+
+## Structure
+
+The structure of the project has black boxes inside one another.
+
+The main method wholly depends on communicating with the Board Object.
+
+Once the Board Object declares Checkmate or Stalemate, end the game.
+
+    Board Loop until Player's Move is Valid{
+        Player Loop until Choose a Move{
+            Piece gets Possible Moves for a Piece {
+                Get Moves for a Piece
+            }
+            Choose Move
+        }
+        Validate Move
+        Break if {
+            Checkmate
+            Stalemate
+        }
+    }
