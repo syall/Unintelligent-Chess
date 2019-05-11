@@ -12,8 +12,13 @@ public class Piece {
     public boolean moved = false;
     public HashSet<Point> moves = new HashSet<>();
 
-    public Piece(char type) {
+    public Piece(char type, char color) {
         this.type = type;
+        this.color = color;
+    }
+
+    public String toString() {
+        return type + "-" + color;
     }
 
     // TODO: Get Legal Moves

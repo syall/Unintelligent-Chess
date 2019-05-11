@@ -23,8 +23,6 @@ Checks will reset all moves in Players.
 
 Players will have their Pieces.
 
-Players contain all the decisions with input will be black boxed.
-
 * HashTable< Piece > pieces
 * Decisions in an Input Loop
 
