@@ -57,7 +57,107 @@ public class Chess {
                      * - Choose a Space with Playing's Piece
                      * - Choose a Space to move with Playing's Piece
                      */
+
+                    System.out.println("Choose a Piece:");
                     
+                    // X-Coordinate of Starting Point
+                    int x = -1;
+                    System.out.print("X-Coordinate [0-7]: ");
+                    do {
+                        try {
+                            x = Integer.parseInt(in.nextLine());
+                            
+                        } catch (NumberFormatException nfe) {
+                            System.out.print("Not valid. Try again: ");
+                        }
+                    } while(!(x >=0 && x <= 7));
+                    // Y-Coordinate of Starting Point
+                    int y = -1;
+                    System.out.print("Y-Coordinate [0-7]: ");
+                    do {
+                        try {
+                            y = Integer.parseInt(in.nextLine());
+                            
+                        } catch (NumberFormatException nfe) {
+                            System.out.print("Not valid. Try again: ");
+                        }
+                    } while(!(y >= 0 && y <= 7));
+
+                    Piece n;
+                    Integer hash = new Point(x, y).hashCode();
+                    // If Piece chosen in Invalid
+                    if((n = playing.pieces.get(hash)) == null) {
+                        System.out.println("Invalid Starting Point.");
+                        continue;
+                    }
+                    // If Piece belongs to Player playing
+                    System.out.println(
+                        "Are you sure you want to move this piece?: " + 
+                        n + 
+                        "(" + x + "," + y + ")"
+                    );
+                    int confirm = 0;
+                    do {
+                        input = in.nextLine();
+                        // yes
+                        if(input.equals("no")) {
+                            continue;
+                        }
+                        // Invalid
+                        else if(!input.equals("yes")) {
+                            System.out.print("Choose yes or no: ");
+                        }
+                        // yes
+                        else {
+                            confirm = 1;
+                        }
+                    } while (confirm == 0);
+                    
+                    System.out.println("Choose a Destination:");
+                    
+                    // X-Coordinate of Destination
+                    x = -1;
+                    System.out.print("X-Coordinate [0-7]: ");
+                    do {
+                        try {
+                            x = Integer.parseInt(in.nextLine());
+                            
+                        } catch (NumberFormatException nfe) {
+                            System.out.print("Not valid. Try again: ");
+                            x = -1;
+                        }
+                    } while(!(x >= 0 && x <= 7));
+                    // Y-Coordinate of Destination
+                    y = -1;
+                    System.out.print("Y-Coordinate [0-7]: ");
+                    do {
+                        try {
+                            y = Integer.parseInt(in.nextLine());
+                            
+                        } catch (NumberFormatException nfe) {
+                            System.out.println("Not valid. Try again: ");
+                            y = -1;
+                        }
+                    } while(!(y >= 0 && y <= 7));
+
+                    // If Destination is Invalid
+                    if(!playing.pieces.get(hash).moves.contains(new Point(x, y))) {
+                        System.out.println("Invalid Destination.");
+                        continue;
+                    }
+
+                    // If Player waiting has a piece at Destination
+                    Integer oppHash = new Point(x, y).hashCode();
+                    if(waiting.pieces.containsKey(oppHash)) {
+                        waiting.pieces.remove(oppHash);
+                    }
+                    // Remap Player playing's piece
+                    playing.pieces.put(oppHash, playing.pieces.get(hash));
+
+                    // Set moved of the piece moved to true
+                    playing.pieces.get(oppHash).moved = true;
+
+                    // Move Completed!
                     plays = 1;
                 }
                 // Help
@@ -81,11 +181,11 @@ public class Chess {
                         if(input.equals("yes")) {
                             System.exit(0);
                         }
-                        // no
+                        // Invalid
                         else if(!input.equals("no")) {
                             System.out.print("Choose yes or no: ");
                         }
-                        // Invalid
+                        // no
                         else {
                             confirm = 1;
                         }
@@ -147,5 +247,8 @@ public class Chess {
             System.out.println("Impossible Situation");
             System.exit(1);
         }
+        
+        // Exit
+        System.exit(0);
     }
 }
