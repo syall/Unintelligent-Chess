@@ -96,7 +96,21 @@ public class Piece {
 
         // Forward 1 Space
         if(playing.get((row+direction)*8+col) == null && waiting.get((row+direction)*8+col) == null) {
-            add.add(new Point(row+direction, col));
+
+            // TODO: Check if Pass by Reference works so I don't have to do all of this
+            Board temp = new Board(board);
+            Hashtable<Integer, Piece> tempo1 = temp.white.pieces;
+            Hashtable<Integer, Piece> tempo2 = temp.black.pieces;
+            if (color != board.black.color) {
+                tempo1 = board.black.pieces;
+                tempo2 = board.white.pieces;
+            }
+            tempo1.remove((row+direction)*8 + col);
+            tempo2.remove((row+direction)*8 + col);
+            tempo1.put((row+direction)*8 + col, this);
+            if(!Board.check(color, temp)) {
+                add.add(new Point(row+direction, col));
+            }
             // Forward 2 Spaces
             if(!moved && playing.get((row+direction*2)*8+col) == null && waiting.get((row+direction*2)*8+col) == null) {
                 add.add(new Point(row+direction*2, col));

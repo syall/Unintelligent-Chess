@@ -90,8 +90,7 @@ public class Chess {
                         continue;
                     }
                     // If Piece belongs to Player playing
-                    System.out
-                            .println("Are you sure you want to move this piece?: " + n + "(" + sx + "," + sy + ")");
+                    System.out.println("Move this piece?: " + n + "(" + sx + "," + sy + ")");
                     int confirm = 0;
                     do {
                         input = in.nextLine();
