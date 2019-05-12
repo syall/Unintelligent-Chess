@@ -5,7 +5,7 @@ import java.util.Hashtable;
 /**
  * Board
  */
-public class Board{
+public class Board implements Cloneable{
 
     public int turn = 0;
     public Player white;
@@ -17,20 +17,18 @@ public class Board{
         black = new Player('b');
     }
 
-    // Deep Copy
-    public Board(Board board) {
-        this.turn = board.turn;
-        this.white = new Player(board.white);
-        this.black = new Player(board.black);
-        this.passant = board.passant;
-    }
-
     // Show Board
     public String toString() {
-        String output = "";
+        // Row Label
+        String output = "  ";
+        for(int i = 0; i < 8; i++)
+            output += "  " + i + "  ";
+        output += "\n";
 
         // Check Rows
         for (int row = 0; row < 8; row++) {
+            // Column Label
+            output += row + " ";
             // Check Columns
             for (int col = 0; col < 8; col++) {
                 Point temp = new Point(row, col);
@@ -229,13 +227,13 @@ public class Board{
         if(row-2 >= 0) {
             // Left 1
             if(col-1 >= 0) {
-                if(waiting.get((row-2)*8 + col-1).type == 'n') {
+                if(waiting.get((row-2)*8 + col-1) != null && waiting.get((row-2)*8 + col-1).type == 'n') {
                     return true;
                 }
             }
             // Right 1
             else if(col+1 < 8) {
-                if(waiting.get((row-2)*8 + col+1).type == 'n') {
+                if(waiting.get((row-2)*8 + col+1) != null && waiting.get((row-2)*8 + col+1).type == 'n') {
                     return true;
                 }
             }
@@ -244,13 +242,13 @@ public class Board{
         if(row-1 >= 0) {
             // Left 2
             if(col-2 >= 0) {
-                if(waiting.get((row-1)*8 + col-2).type == 'n') {
+                if(waiting.get((row-1)*8 + col-2) != null && waiting.get((row-1)*8 + col-2).type == 'n') {
                     return true;
                 }
             }
             // Right 2
             else if(col+2 < 8) {
-                if(waiting.get((row-1)*8 + col+2).type == 'n') {
+                if(waiting.get((row-1)*8 + col+2) != null && waiting.get((row-1)*8 + col+2).type == 'n') {
                     return true;
                 }
             }
@@ -259,13 +257,13 @@ public class Board{
         if(row+1 < 8) {
             // Left 2
             if(col-2 >= 0) {
-                if(waiting.get((row+1)*8 + col-2).type == 'n') {
+                if(waiting.get((row+1)*8 + col-2) != null && waiting.get((row+1)*8 + col-2).type == 'n') {
                     return true;
                 }
             }
             // Right 2
             else if(col+2 < 8) {
-                if(waiting.get((row+1)*8 + col+2).type == 'n') {
+                if(waiting.get((row+1)*8 + col+2) != null && waiting.get((row+1)*8 + col+2).type == 'n') {
                     return true;
                 }
             }
@@ -274,13 +272,13 @@ public class Board{
         if(row+2 < 8) {
             // Left 1
             if(col-1 >= 0) {
-                if(waiting.get((row+2)*8 + col-1).type == 'n') {
+                if(waiting.get((row+2)*8 + col-1) != null && waiting.get((row+2)*8 + col-1).type == 'n') {
                     return true;
                 }
             }
             // Right 1
             else if(col+1 < 8) {
-                if(waiting.get((row+2)*8 + col+1).type == 'n') {
+                if(waiting.get((row+2)*8 + col+1) != null && waiting.get((row+2)*8 + col+1).type == 'n') {
                     return true;
                 }
             }

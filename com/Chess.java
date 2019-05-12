@@ -3,7 +3,7 @@ package com;
 import java.util.Scanner;
 
 public class Chess {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
 
         // Initialize Scanner
         Scanner in = new Scanner(System.in);
@@ -12,12 +12,12 @@ public class Chess {
         Board board = new Board();
 
         // Set Legal Moves for all Pieces in white
-        for (Integer key : board.white.pieces.keySet()) {
+        for (int key = 0; key < 16; key++) {
             board.white.pieces.get(key).getMoves(board);
         }
 
         // Set Legal Moves for all Pieces in black
-        for (Integer key : board.black.pieces.keySet()) {
+        for (int key = 48; key < 64; key++) {
             board.black.pieces.get(key).getMoves(board);
         }
 
@@ -89,40 +89,21 @@ public class Chess {
                         System.out.println("Invalid Starting Point.");
                         continue;
                     }
-                    // If Piece belongs to Player playing
-                    System.out.println("Move this piece?: " + n + "(" + sx + "," + sy + ")");
-                    int confirm = 0;
-                    do {
-                        input = in.nextLine();
-                        // yes
-                        if (input.equals("no")) {
-                            continue;
-                        }
-                        // Invalid
-                        else if (!input.equals("yes")) {
-                            System.out.print("Choose yes or no: ");
-                        }
-                        // yes
-                        else {
-                            confirm = 1;
-                        }
-                    } while (confirm == 0);
 
-                    // Pawn Special Cases
-                    if (n.type == 'p') {
-                        /** TODO: En Passant
-                         * If passant is true, check for possible En Passant
-                         * If passant is possible, confirm if they want to En Passant
-                         * List all possible En Passant for Piece n
-                         */
-                        if (board.passant) {
-                            board.passant = false;
-                        }
+                    // If Piece belongs to Player playing
+
+                    /** TODO: En Passant
+                     * If passant is true, check for possible En Passant
+                     * If passant is possible, confirm if they want to En Passant
+                     * List all possible En Passant for Piece n
+                     */
+                    if (n.type == 'p' && board.passant) {
+
                     }
 
                     /** TODO: Castle
                      * Check for possible Castle
-                     * If Castle is possible, confirm if they want to En Passant
+                     * If Castle is possible, confirm if they want to Castle
                      * List all possible Castles for Piece n
                      */
                     if (n.type == 'k') {
@@ -181,33 +162,27 @@ public class Chess {
 
                     // Set moved of the piece moved to true
                     playing.pieces.get(oppHash).moved = true;
-                    
+
                     // Pawn Special Cases
                     if (playing.pieces.get(oppHash).type == 'p') {
                         // Pawn Promotion
                         if ((playing.pieces.get(oppHash).color == 'w' && fx == 7)
                                 || (playing.pieces.get(oppHash).color == 'b' && fx == 0)) {
                             int promo = 0;
-                            System.out.println(
-                                "Promote Pawn:\n" +
-                                "- q = queen\n" +
-                                "- r = rook\n" +
-                                "- b = bishop\n" +
-                                "- n = knight\n"
-                            );
+                            System.out.println("Promote Pawn:\n" + "- q = queen\n" + "- r = rook\n" + "- b = bishop\n"
+                                    + "- n = knight\n");
                             do {
                                 input = in.nextLine();
-                                if(input.equals("q") || input.equals("r") || input.equals("b") || input.equals("n")) {
+                                if (input.equals("q") || input.equals("r") || input.equals("b") || input.equals("n")) {
                                     promo = 1;
-                                }
-                                else {
+                                } else {
                                     System.out.print("Invalid Promotion. Try Again: ");
                                 }
                             } while (promo == 0);
                             playing.pieces.get(oppHash).type = input.toCharArray()[0];
                         }
                         // Moved 2 Spaces
-                        else if(sx+2 == fx || sx-2 == fx) {
+                        else if (sx + 2 == fx || sx - 2 == fx) {
                             board.passant = true;
                         }
                     }
@@ -250,26 +225,30 @@ public class Chess {
                 }
             }
 
-            // Recalculate Legal Moves and Check for Player playing
-            playing.canMove = false;
-            for (Integer key : playing.pieces.keySet()) {
-                playing.canMove = playing.pieces.get(key).getMoves(board) || playing.canMove;
+            // Set Legal Moves for all Pieces
+            for (int key = 0; key < 64; key++) {
+                if(playing.pieces.get(key) != null ) {
+                    playing.canMove = playing.pieces.get(key).getMoves(board) || playing.canMove;
+                }
+                else if(waiting.pieces.get(key) != null) {
+                    waiting.canMove = waiting.pieces.get(key).getMoves(board) || waiting.canMove;
+                } 
             }
 
-            // Recalculate Legal Moves and Check for Player waiting
-            waiting.canMove = false;
-            for (Integer key : waiting.pieces.keySet()) {
-                waiting.canMove = waiting.pieces.get(key).getMoves(board) || waiting.canMove;
-            }
-
-            // Checkmate
-            if (!waiting.canMove) {
-                loop = 1;
+            // Check
+            if (Board.check(waiting.color, board)) {
+                // Checkmate
+                if(!waiting.canMove) {
+                    loop = 1;
+                }
+                else {
+                    String name = waiting.color == 'w' ? "White" : "Black";
+                    System.out.println(name + " is in Check");
+                }
                 // Stalemate
                 if (!playing.canMove) {
                     loop = 2;
                 }
-                board.turn--;
             }
 
             // Increase Turn Count
@@ -280,6 +259,7 @@ public class Chess {
         in.close();
 
         // Winner
+        board.turn--;
         if (loop == 1) {
             // White Wins
             if (board.turn % 2 == 0) {

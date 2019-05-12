@@ -50,16 +50,6 @@ public class Player {
 
         // King
         pieces.put(new Point(row, 4).hashCode(), new Piece('k', color));
-
-    }
-
-    // Deep Copy
-    public Player(Player player) {
-        this.color = player.color;
-        this.canMove = player.canMove;
-        for(Integer key : player.pieces.keySet()) {
-            pieces.put(key, player.pieces.get(key));
-        }
     }
 
     public String toString() {
