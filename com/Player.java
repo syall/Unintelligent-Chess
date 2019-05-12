@@ -21,12 +21,12 @@ public class Player {
 
         // Set Row for Pawns
         int row = 1;
-        if(color == 'b') {
+        if (color == 'b') {
             row = 6;
         }
-        
+
         // Pawns
-        for(int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++) {
             pieces.put(new Point(row, i).hashCode(), new Piece('p', color));
         }
 
@@ -51,25 +51,29 @@ public class Player {
         // King
         pieces.put(new Point(row, 4).hashCode(), new Piece('k', color));
 
-        // Set Legal Moves for all Pieces
-        for(Integer key : pieces.keySet()) {
-            canMove = pieces.get(key).getMoves() || canMove;
-        }
+    }
 
+    // Deep Copy
+    public Player(Player player) {
+        this.color = player.color;
+        this.canMove = player.canMove;
+        for(Integer key : player.pieces.keySet()) {
+            pieces.put(key, player.pieces.get(key));
+        }
     }
 
     public String toString() {
-        String output =  color + ":\n";
+        String output = color + ":\n";
         // Get Points and Sort them
         ArrayList<Integer> keys = new ArrayList<Integer>(pieces.keySet());
         Collections.sort(keys);
 
         // Unhash and Print Pairings
         int line = 1;
-        for(Integer key : keys) {
+        for (Integer key : keys) {
             output += "[" + pieces.get(key);
             output += Point.unHashCode(key) + "]";
-            if(line%4 == 0) {
+            if (line % 4 == 0) {
                 output += "\n";
             }
             line++;
@@ -77,5 +81,5 @@ public class Player {
 
         return output;
     }
-    
+
 }
