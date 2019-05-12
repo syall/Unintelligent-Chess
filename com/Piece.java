@@ -7,6 +7,7 @@ public class Piece {
 
     public char type; // p, n, k, r, q, b
     public char color;
+    public boolean passant = false;
     public boolean moved = false;
     public HashSet<Point> moves = null;
 

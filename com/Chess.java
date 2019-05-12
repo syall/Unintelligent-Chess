@@ -94,13 +94,90 @@ public class Chess {
 
                     // If Piece belongs to Player playing
 
-                    /** TODO: En Passant
-                     * If passant is true, check for possible En Passant
-                     * If passant is possible, confirm if they want to En Passant
-                     * List all possible En Passant for Piece n
-                     */
-                    if (n.type == 'p' && board.passant) {
+                    // Action to Do!
+                    int confirm = -1;
+                    int fx = -1;
+                    int fy = -1;
 
+                    // En Passant
+                    int pRow = n.color == 'w' ? 4 : 3;
+                    if (n.type == 'p' && board.passant && pRow == sx) {
+                        // Options
+                        int moves = 0;
+
+                        // Reset passant
+                        board.passant = false;
+
+                        // Direction of Pawn
+                        int direction = n.color == 'w' ? 1 : -1;
+
+                        // Check Left
+                        Piece nPass = null;
+                        if((nPass = waiting.pieces.get(pRow*8 + sy-1)) != null && nPass.passant) {
+                            nPass.passant = false;
+                            moves = 1;
+                            fx = pRow+direction;
+                            fy = sy-1;
+                        }
+                        // Check Right
+                        else if((nPass = waiting.pieces.get(pRow*8 + sy+1)) != null && nPass.passant) {
+                            nPass.passant = false;
+                            moves = 2;
+                            fx = pRow+direction;
+                            fy = sy+1;
+                        }
+
+                        // Check
+                        // Remove Original Piece
+                        Piece origin = playing.pieces.remove(sx*8+sy);
+                        // Remove Passant Piece
+                        Piece sad = null;
+                        if(moves == 1) {
+                            sad = waiting.pieces.remove(pRow*8 + sy-1);
+                        }
+                        else if(moves == 2) {
+                            sad = waiting.pieces.remove(pRow*8 + sy + 1);
+                        }
+                        // En Passant
+                        playing.pieces.put(fx*8+fy, origin);
+                        // Check
+                        if(Board.check(origin.color, board)) {
+                            moves = 0;
+                            confirm = -1;
+                        }
+                        // Remove En Passant
+                        playing.pieces.remove(fx*8+fy);
+                        // Put in Original Piece
+                        playing.pieces.put(sx*8+sy, origin);
+                        // Put in Passant Piece
+                        if(moves == 1) {
+                            waiting.pieces.put(pRow*8 + sy-1, sad);
+                        }
+                        else if(moves == 2) {
+                            waiting.pieces.put(pRow*8 + sy + 1, sad);
+                        } 
+                        
+                        // If Passant is valid
+                        if(moves == 1 || moves == 2) {
+                            System.out.print("En Passant? ");
+                            do {
+                                input = in.nextLine();
+                                // yes
+                                if (input.equals("yes")) {
+                                    confirm = moves;
+                                    break;
+                                }
+                                // Invalid
+                                else if (!input.equals("no")) {
+                                    System.out.print("Choose yes or no: ");
+                                }
+                                // no
+                                else {
+                                    confirm = -1;
+                                    break;
+                                }
+                            } while (true);
+                        }
                     }
 
                     /** TODO: Castle
@@ -112,52 +189,67 @@ public class Chess {
 
                     }
 
-                    System.out.println("Choose a Destination:");
+                    // If not a Special Case
+                    if(confirm == -1) {
+                        System.out.println("Choose a Destination:");
 
-                    // X-Coordinate of Destination
-                    int fx = -1;
-                    System.out.print("X-Coordinate: ");
-                    do {
-                        try {
-                            fx = Integer.parseInt(in.nextLine());
-                            if(fx < 0 || fx > 7)
-                                System.out.print("[0-7]: ");
-                        } catch (NumberFormatException nfe) {
-                            System.out.print("[0-7]: ");
-                        }
-                    } while (fx < 0 || fx > 7);
-                    // Y-Coordinate of Destination
-                    int fy = -1;
-                    System.out.print("Y-Coordinate: ");
-                    do {
-                        try {
-                            fy = Integer.parseInt(in.nextLine());
-                            if(fy < 0 || fy > 7) {
+                        // X-Coordinate of Destination
+                        
+                        System.out.print("X-Coordinate: ");
+                        do {
+                            try {
+                                fx = Integer.parseInt(in.nextLine());
+                                if(fx < 0 || fx > 7)
+                                    System.out.print("[0-7]: ");
+                            } catch (NumberFormatException nfe) {
                                 System.out.print("[0-7]: ");
                             }
-                        } catch (NumberFormatException nfe) {
-                            System.out.print("[0-7]: ");
-                        }
-                    } while (fy < 0 || fy > 7);
+                        } while (fx < 0 || fx > 7);
+                        // Y-Coordinate of Destination
+                        System.out.print("Y-Coordinate: ");
+                        do {
+                            try {
+                                fy = Integer.parseInt(in.nextLine());
+                                if(fy < 0 || fy > 7) {
+                                    System.out.print("[0-7]: ");
+                                }
+                            } catch (NumberFormatException nfe) {
+                                System.out.print("[0-7]: ");
+                            }
+                        } while (fy < 0 || fy > 7);
 
-                    // If Destination is Invalid
-                    boolean contain = false;
-                    for (Point p : n.moves) {
-                        if (p.row == fx && p.col == fy) {
-                            contain = true;
-                            break;
+                        // If Destination is Invalid
+                        boolean contain = false;
+                        for (Point p : n.moves) {
+                            if (p.row == fx && p.col == fy) {
+                                contain = true;
+                                break;
+                            }
+                        }
+                        if (!contain) {
+                            System.out.println("Invalid Destination.");
+                            continue;
                         }
                     }
-
-                    if (!contain) {
-                        System.out.println("Invalid Destination.");
-                        continue;
-                    }
+                    
 
                     // If Player waiting has a piece at Destination
                     Integer oppHash = new Point(fx, fy).hashCode();
                     if (waiting.pieces.containsKey(oppHash)) {
                         waiting.pieces.remove(oppHash);
+                    }
+
+                    // En Passant Clean Up
+                    if(confirm != -1) {
+                        System.out.println(waiting);
+                        // En Passant Right
+                        if(confirm == 1) {
+                            waiting.pieces.remove(pRow*8+fy);
+                        }
+                        // En Passant Left
+                        else if(confirm == 2) {
+                            waiting.pieces.remove(pRow*8+fy);
+                        }
                     }
 
                     // Remap Player playing's piece
@@ -172,8 +264,8 @@ public class Chess {
                         if ((playing.pieces.get(oppHash).color == 'w' && fx == 7)
                                 || (playing.pieces.get(oppHash).color == 'b' && fx == 0)) {
                             int promo = 0;
-                            System.out.println("Promote Pawn:\n" + "- q = queen\n" + "- r = rook\n" + "- b = bishop\n"
-                                    + "- n = knight\n");
+                            System.out.print("Promote Pawn:\n" + "- q = queen\n" + "- r = rook\n" + "- b = bishop\n"
+                                    + "- n = knight\nPromote: ");
                             do {
                                 input = in.nextLine();
                                 if (input.equals("q") || input.equals("r") || input.equals("b") || input.equals("n")) {
@@ -187,6 +279,7 @@ public class Chess {
                         // Moved 2 Spaces
                         else if (sx + 2 == fx || sx - 2 == fx) {
                             board.passant = true;
+                            playing.pieces.get(oppHash).passant = true;
                         }
                     }
 
@@ -232,10 +325,18 @@ public class Chess {
             for (int key = 0; key < 64; key++) {
                 if(playing.pieces.get(key) != null ) {
                     playing.canMove = playing.pieces.get(key).getMoves(board) || playing.canMove;
+                    // Reset passant if not Passant this turn
+                    if(!board.passant) {
+                        playing.pieces.get(key).passant = false;
+                    }
                 }
                 else if(waiting.pieces.get(key) != null) {
                     waiting.canMove = waiting.pieces.get(key).getMoves(board) || waiting.canMove;
-                } 
+                    // Reset passant if not Passant this turn
+                    if(!board.passant) {
+                        waiting.pieces.get(key).passant = false;
+                    }
+                }
             }
 
             // Check
