@@ -13,12 +13,12 @@ public class Chess {
 
         // Set Legal Moves for all Pieces in white
         for (Integer key : board.white.pieces.keySet()) {
-            board.white.canMove = board.white.pieces.get(key).getMoves(board) || board.white.canMove;
+            board.white.pieces.get(key).getMoves(board);
         }
 
         // Set Legal Moves for all Pieces in black
         for (Integer key : board.black.pieces.keySet()) {
-            board.black.canMove = board.black.pieces.get(key).getMoves(board) || board.black.canMove;
+            board.black.pieces.get(key).getMoves(board);
         }
 
         // Turn Loop
@@ -91,7 +91,7 @@ public class Chess {
                     }
                     // If Piece belongs to Player playing
                     System.out
-                            .println("Are you sure you want to move this piece?: " + n.moves + "(" + sx + "," + sy + ")");
+                            .println("Are you sure you want to move this piece?: " + n + "(" + sx + "," + sy + ")");
                     int confirm = 0;
                     do {
                         input = in.nextLine();

@@ -52,6 +52,8 @@ public class Piece {
             return false;
         }
 
+        System.out.println(type + ":" + moves);
+        
         // If possible moves
         return true;
     }
