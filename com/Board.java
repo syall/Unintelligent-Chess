@@ -148,85 +148,77 @@ public class Board{
 
         // Diagonals
         // Upper Right
-        for(int i = row-1; i >= 0; i--) {
-            for(int j = col+1; j < 8; j++) {
-                Piece n = null;
-                // White
-                if((n = playing.get(i*8+j)) != null) {
-                    break;
+        for(int i = 1; row-i >= 0 && col+i < 8; i++) {
+            Piece n = null;
+            // White
+            if(playing.get((row-i)*8+col+i) != null) {
+                break;
+            }
+            // Black
+            else if((n = waiting.get((row-i)*8+col+i)) != null) {
+                if(n.type == 'b' || n.type == 'q') {
+                    return true;
                 }
-                // Black
-                else if((n = waiting.get(i*8+j)) != null) {
-                    if(n.type == 'b' || n.type == 'q') {
+                else if(row-i == row-1 && col+i == col+1) {
+                    if(n.type == 'k' || n.type == 'p') {
                         return true;
-                    }
-                    else if(i == row-1 && j == col+1) {
-                        if(n.type == 'k' || n.type == 'p') {
-                            return true;
-                        }
                     }
                 }
             }
         }
         // Upper Left
-        for(int i = row-1; i >= 0; i--) {
-            for(int j = col-1; j >= 0; j--) {
-                Piece n = null;
-                // White
-                if((n = playing.get(i*8+j)) != null) {
-                    break;
+        for(int i = 1; row-i >= 0 && col-i >= 0; i++) {
+            Piece n = null;
+            // White
+            if(playing.get((row-i)*8+col-i) != null) {
+                break;
+            }
+            // Black
+            else if((n = waiting.get((row-i)*8+col-i)) != null) {
+                if(n.type == 'b' || n.type == 'q') {
+                    return true;
                 }
-                // Black
-                else if((n = waiting.get(i*8+j)) != null) {
-                    if(n.type == 'b' || n.type == 'q') {
+                else if(row-i == row-1 && col-i == col-1) {
+                    if(n.type == 'k' || n.type == 'p') {
                         return true;
-                    }
-                    else if(i == row-1 && j == col-1) {
-                        if(n.type == 'k' || n.type == 'p') {
-                            return true;
-                        }
                     }
                 }
             }
         }
         // Lower Right
-        for(int i = row+1; i < 8; i++) {
-            for(int j = col+1; j < 8; j++) {
-                Piece n = null;
-                // White
-                if((n = playing.get(i*8+j)) != null) {
-                    break;
+        for(int i = 1; row+i < 8 && col+i < 8; i++) {
+            Piece n = null;
+            // White
+            if(playing.get((row+i)*8+col+i) != null) {
+                break;
+            }
+            // Black
+            else if((n = waiting.get((row+i)*8+col+i)) != null) {
+                if(n.type == 'b' || n.type == 'q') {
+                    return true;
                 }
-                // Black
-                else if((n = waiting.get(i*8+j)) != null) {
-                    if(n.type == 'b' || n.type == 'q') {
+                else if(row+i == row+1 && col+i == col+1) {
+                    if(n.type == 'k' || n.type == 'p') {
                         return true;
-                    }
-                    else if(i == row+1 && j == col+1) {
-                        if(n.type == 'k' || n.type == 'p') {
-                            return true;
-                        }
                     }
                 }
             }
         }
         // Lower Left
-        for(int i = row+1; i < 8; i++) {
-            for(int j = col-1; j >= 0; j--) {
-                Piece n = null;
-                // White
-                if((n = playing.get(i*8+j)) != null) {
-                    break;
+        for(int i = 1; row+i < 8 && col-i >= 0; i++) {
+            Piece n = null;
+            // White
+            if(playing.get((row+i)*8+col-i) != null) {
+                break;
+            }
+            // Black
+            else if((n = waiting.get((row+i)*8+col-i)) != null) {
+                if(n.type == 'b' || n.type == 'q') {
+                    return true;
                 }
-                // Black
-                else if((n = waiting.get(i*8+j)) != null) {
-                    if(n.type == 'b' || n.type == 'q') {
+                else if(row+i == row+1 && col-i == col-1) {
+                    if(n.type == 'k' || n.type == 'p') {
                         return true;
-                    }
-                    else if(i == row+1 && j == col-1) {
-                        if(n.type == 'k' || n.type == 'p') {
-                            return true;
-                        }
                     }
                 }
             }

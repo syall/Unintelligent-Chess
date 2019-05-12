@@ -47,13 +47,13 @@ public class Piece {
             moves.addAll(this.kingMoves(board));
         }
 
+        //System.out.println(type + "-" + color + ":" + moves);
+
         // If no possible moves
         if (moves.isEmpty()) {
             return false;
         }
 
-        System.out.println(type + ":" + moves);
-        
         // If possible moves
         return true;
     }
@@ -63,6 +63,7 @@ public class Piece {
      * - Make copied Board temp
      * - Simulate move in temp
      * - if(!check(color, temp)) { add.add(new Point(row, col));}
+     * - System.out.println(type + "-" + color + "(" + row + "," + col + "):" + add);
      */
 
     public HashSet<Point> pawnMoves(Board board) {
@@ -87,27 +88,28 @@ public class Piece {
         int row = hash / 8;
         int col = hash % 8;
 
+
         int direction = 1;
         if(color == 'b') {
             direction = -1;
         }
 
         // Forward 1 Space
-        if(playing.get(row+direction+col) == null && waiting.get(row+direction+col) == null) {
+        if(playing.get((row+direction)*8+col) == null && waiting.get((row+direction)*8+col) == null) {
             add.add(new Point(row+direction, col));
             // Forward 2 Spaces
-            if(playing.get(row+direction*2+col) == null && waiting.get(row+direction*2+col) == null) {
+            if(!moved && playing.get((row+direction*2)*8+col) == null && waiting.get((row+direction*2)*8+col) == null) {
                 add.add(new Point(row+direction*2, col));
             }
         }
 
         // Capture a Piece Left
-        if(waiting.get(row+direction+col-1) != null) {
+        if(waiting.get((row+direction)*8+col-1) != null) {
             add.add(new Point(row+direction, col-1));
         }
 
         // Capture a Piece Right
-        if(waiting.get(row+direction+col+1) != null) {
+        if(waiting.get((row+direction)*8+col+1) != null) {
             add.add(new Point(row+direction, col+1));
         }
 
@@ -146,7 +148,7 @@ public class Piece {
                 }
             }
             // Right 1
-            else if(col+1 < 8) {
+            if(col+1 < 8) {
                 if(playing.get((row-2)*8 + col+1) == null) {
                     add.add(new Point(row-2, col+1));
                 }
@@ -161,7 +163,7 @@ public class Piece {
                 }
             }
             // Right 2
-            else if(col+2 < 8) {
+            if(col+2 < 8) {
                 if(playing.get((row-1)*8 + col+2) == null) {
                     add.add(new Point(row-1, col+2));
                 }
@@ -176,7 +178,7 @@ public class Piece {
                 }
             }
             // Right 2
-            else if(col+2 < 8) {
+            if(col+2 < 8) {
                 if(playing.get((row+1)*8 + col+2) == null) {
                     add.add(new Point(row+1, col+2));
                 }
@@ -191,7 +193,7 @@ public class Piece {
                 }
             }
             // Right 1
-            else if(col+1 < 8) {
+            if(col+1 < 8) {
                 if(playing.get((row+2)*8 + col+1) == null) {
                     add.add(new Point(row+2, col+1));
                 }
@@ -235,7 +237,7 @@ public class Piece {
                 }
             }
             // Upper Right
-            if(col+1 <8) {
+            if(col+1 < 8) {
                 if(playing.get((row-1)*8+col+1) == null) {
                     add.add(new Point(row-1, col+1));
                 }
@@ -382,66 +384,63 @@ public class Piece {
 
         // Diagonals
         // Upper Right
-        for(int i = row-1; i >= 0; i--) {
-            for(int j = col+1; j < 8; j++) {
-                // White
-                if(playing.get(i*8+j) != null) {
-                    break;
-                }
+        for(int i = 1; row-i >= 0 && col+i < 8; i++) {
+            // White
+            if(playing.get((row-i)*8+col+i) != null) {
+                break;
+            }
+            else {
+                // null
+                add.add(new Point(row-i, col+i));
                 // Black
-                else {
-                    add.add(new Point(i, j));
-                    if(waiting.get(i*8+j) != null) {
-                        break;
-                    }
+                if(waiting.get((row-i)*8+col+i) != null) {
+                    break;
                 }
             }
         }
+        
         // Upper Left
-        for(int i = row-1; i >= 0; i--) {
-            for(int j = col-1; j >= 0; j--) {
-                // White
-                if(playing.get(i*8+j) != null) {
-                    break;
-                }
+        for(int i = 1; row-i >= 0 && col-i >= 0; i++) {
+            // White
+            if(playing.get((row-i)*8+col-i) != null) {
+                break;
+            }
+            else {
+                // null
+                add.add(new Point(row-i, col-i));
                 // Black
-                else {
-                    add.add(new Point(i, j));
-                    if(waiting.get(i*8+j) != null) {
-                        break;
-                    }
+                if(waiting.get((row-i)*8+col-i) != null) {
+                    break;
                 }
             }
         }
         // Lower Right
-        for(int i = row+1; i < 8; i++) {
-            for(int j = col+1; j < 8; j++) {
-                // White
-                if(playing.get(i*8+j) != null) {
-                    break;
-                }
+        for(int i = 1; row+i < 8 && col+i < 8; i++) {
+            // White
+            if(playing.get((row+i)*8+col+i) != null) {
+                break;
+            }
+            else {
+                // null
+                add.add(new Point(row+i, col+i));
                 // Black
-                else {
-                    add.add(new Point(i, j));
-                    if(waiting.get(i*8+j) != null) {
-                        break;
-                    }
+                if(waiting.get((row+i)*8+col+i) != null) {
+                    break;
                 }
             }
         }
         // Lower Left
-        for(int i = row+1; i < 8; i++) {
-            for(int j = col-1; j >= 0; j--) {
-                // White
-                if(playing.get(i*8+j) != null) {
-                    break;
-                }
+        for(int i = 1; row+i < 8 && col-i >= 0; i++) {
+            // White
+            if(playing.get((row+i)*8+col-i) != null) {
+                break;
+            }
+            else {
+                // null
+                add.add(new Point(row+i, col-i));
                 // Black
-                else {
-                    add.add(new Point(i, j));
-                    if(waiting.get(i*8+j) != null) {
-                        break;
-                    }
+                if(waiting.get((row+i)*8+col-i) != null) {
+                    break;
                 }
             }
         }

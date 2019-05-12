@@ -31,12 +31,12 @@ public class Chess {
             Player playing = board.white;
             Player waiting = board.black;
             if (board.turn % 2 != 0) {
-                playing = board.white;
-                waiting = board.black;
+                playing = board.black;
+                waiting = board.white;
             }
 
             // Print out Board and Pieces for both Players
-            System.out.println(board + "\n" + playing + "\n" + waiting);
+            System.out.println(board + "\n" + playing);
 
             // Input Loop for Player playing
             int plays = 0;
@@ -264,7 +264,7 @@ public class Chess {
             }
 
             // Checkmate
-            if (!waiting.canMove || board.turn == 4) {
+            if (!waiting.canMove) {
                 loop = 1;
                 // Stalemate
                 if (!playing.canMove) {
