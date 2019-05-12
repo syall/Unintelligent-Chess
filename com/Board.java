@@ -2,9 +2,6 @@ package com;
 
 import java.util.Hashtable;
 
-/**
- * Board
- */
 public class Board implements Cloneable{
 
     public int turn = 0;

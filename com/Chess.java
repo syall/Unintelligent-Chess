@@ -61,26 +61,28 @@ public class Chess {
 
                     // X-Coordinate of Starting Point
                     int sx = -1;
-                    System.out.print("X-Coordinate [0-7]: ");
+                    System.out.print("X-Coordinate: ");
                     do {
                         try {
                             sx = Integer.parseInt(in.nextLine());
-
+                            if(sx < 0 || sx > 7)
+                                System.out.print("[0-7]: ");
                         } catch (NumberFormatException nfe) {
-                            System.out.print("Not valid. Try again: ");
+                            System.out.print("[0-7]: ");
                         }
-                    } while (!(sx >= 0 && sx <= 7));
+                    } while (sx < 0 || sx > 7);
                     // Y-Coordinate of Starting Point
                     int sy = -1;
-                    System.out.print("Y-Coordinate [0-7]: ");
+                    System.out.print("Y-Coordinate: ");
                     do {
                         try {
                             sy = Integer.parseInt(in.nextLine());
-
+                            if(sy < 0 || sy > 7)
+                                System.out.print("[0-7]: ");
                         } catch (NumberFormatException nfe) {
-                            System.out.print("Not valid. Try again: ");
+                            System.out.print("[0-7]: ");
                         }
-                    } while (!(sy >= 0 && sy <= 7));
+                    } while (sy < 0 || sy > 7);
 
                     Piece n;
                     Integer hash = new Point(sx, sy).hashCode();
@@ -114,28 +116,29 @@ public class Chess {
 
                     // X-Coordinate of Destination
                     int fx = -1;
-                    System.out.print("X-Coordinate [0-7]: ");
+                    System.out.print("X-Coordinate: ");
                     do {
                         try {
                             fx = Integer.parseInt(in.nextLine());
-
+                            if(fx < 0 || fx > 7)
+                                System.out.print("[0-7]: ");
                         } catch (NumberFormatException nfe) {
-                            System.out.print("Not valid. Try again: ");
-                            fx = -1;
+                            System.out.print("[0-7]: ");
                         }
-                    } while (!(fx >= 0 && fx <= 7));
+                    } while (fx < 0 || fx > 7);
                     // Y-Coordinate of Destination
                     int fy = -1;
-                    System.out.print("Y-Coordinate [0-7]: ");
+                    System.out.print("Y-Coordinate: ");
                     do {
                         try {
                             fy = Integer.parseInt(in.nextLine());
-
+                            if(fy < 0 || fy > 7) {
+                                System.out.print("[0-7]: ");
+                            }
                         } catch (NumberFormatException nfe) {
-                            System.out.println("Not valid. Try again: ");
-                            fy = -1;
+                            System.out.print("[0-7]: ");
                         }
-                    } while (!(fy >= 0 && fy <= 7));
+                    } while (fy < 0 || fy > 7);
 
                     // If Destination is Invalid
                     boolean contain = false;

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 
-/**
- * Player
- */
 public class Player {
 
     public char color;

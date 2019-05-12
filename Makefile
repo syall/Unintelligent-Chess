@@ -8,7 +8,7 @@ play: build
 	make clean
 
 jar: build com/
-	jar cmvf com/Chess.mf Chess.jar com/
+	jar cmvf Chess.mf Chess.jar com/
 
 clean:
 	find . -name "*.class" -type f -delete

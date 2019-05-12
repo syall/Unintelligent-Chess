@@ -1,8 +1,5 @@
 package com;
 
-/**
- * Point
- */
 public class Point {
 
     public int row;

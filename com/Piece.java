@@ -3,15 +3,12 @@ package com;
 import java.util.HashSet;
 import java.util.Hashtable;
 
-/**
- * Piece
- */
 public class Piece {
 
-    public char type; // p, r, n, b, k, q
+    public char type; // p, n, k, r, q, b
     public char color;
     public boolean moved = false;
-    public HashSet<Point> moves = new HashSet<>();
+    public HashSet<Point> moves = null;
 
     public Piece(char type, char color) {
         this.type = type;
@@ -47,7 +44,6 @@ public class Piece {
             moves.addAll(this.kingMoves(board));
         }
         
-
         // If no possible moves
         if (moves.isEmpty()) {
             return false;
@@ -57,7 +53,7 @@ public class Piece {
         return true;
     }
 
-    // TODO: Add check()
+    // TODO: Add check() to Knight, King, Cardinals, Diagonals
 
     public HashSet<Point> pawnMoves(Board board){
 
@@ -490,4 +486,5 @@ public class Piece {
 
         return add;
     }
+
 }
