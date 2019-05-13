@@ -1,7 +1,6 @@
 package com;
 
 import java.util.Scanner;
-// TODO: Update README.md
 
 public class Chess {
     public static void main(String[] args) throws CloneNotSupportedException {

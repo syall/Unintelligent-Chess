@@ -2,7 +2,7 @@ package com;
 
 import java.util.Hashtable;
 
-public class Board implements Cloneable {
+public class Board {
 
     public int turn = 0;
     public Player white;

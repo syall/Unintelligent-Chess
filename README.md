@@ -2,63 +2,76 @@
 
 Simple Chess implementation with Object Oriented Programming in mind.
 
-Design is especially considered with the black box concept.
-
 ## Objects
 
 ### Board
 
-The Board will hold all the game logic of valid moves and check/checkmate/stalemate.
-
-A turn in the board will persist until a player makes a valid move when possible.
-
-Uses Clone for Checks.
-
-Checks will reset all moves in Players.
+The Board will hold the Players and be responsible for checking with check().
 
 * Turn Count
-* Players / Checks Loop
+* Players
+* Passant
+* static check()
 
 ### Player
 
 Players will have their Pieces.
 
-* HashTable< Piece > pieces
-* Decisions in an Input Loop
+* Color
+* HashTable of Piece
+* canMove
 
 ### Piece
 
-We assume the Piece is dumb and the moves does not account for checks.
-
 We have type to determine what moves to add into moves as well as a moved boolean.
 
-* Fields
-  * char type;
-  * boolean moved = false;;
-  * HashSet< Point > moves = null;
-* Methods
-  * getMoves
-  * castle
-  * passant
+* Type
+* Color
+* Passant
+* Moved
+* HashSet of Points for Possible Moves
+* getMoves() and auxiliary functions
 
 ## Structure
 
-The structure of the project has black boxes inside one another.
-
-The main method wholly depends on communicating with the Board Object.
-
-Once the Board Object declares Checkmate or Stalemate, end the game.
-
-    Board Loop until Player's Move is Valid{
-        Player Loop until Choose a Move{
-            Piece gets Possible Moves for a Piece {
-                Get Moves for a Piece
-            }
-            Choose Move
+    Turn Loop (Board)
+    {
+        Input Loop (Player)
+        {
+            Move (Piece)
         }
-        Validate Move
-        Break if {
-            Checkmate
-            Stalemate
-        }
+        Reset Player
+        Check Condition
     }
+
+## Usage
+
+Fork the Repository at https://github.com/syall/chess.
+
+In a command line,
+
+    $: make
+
+will build, run, and clean from the Makefile
+
+To get a JAR file,
+
+    $: make jar
+
+To run a JAR file,
+
+    $: java -jar Chess.jar
+
+## Roadmap
+
+This project was done on a whim, running through what I thought was going to be simple, but turned out to be more complicated than I thought.
+
+Some items I would consider in future versions:
+
+* GUI
+* AI Opponent
+* Removing Player (turns out to almost be useless)
+* Optimization on check()
+  * Based on Last Move
+  * Single Array instead of HashTable
+* Networking? (Never did this in Java before)
