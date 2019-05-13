@@ -9,19 +9,18 @@ public class Point {
         this.row = row;
         this.col = col;
     }
-    
+
     public String toString() {
-        return "(" + row + "," + col  + ")";
+        return "(" + row + "," + col + ")";
     }
 
-    public int hashCode() 
-    {
+    public int hashCode() {
         return row * 8 + col;
     }
 
     public static Point unHashCode(Integer hash) {
-        
-        return new Point(hash/8, hash%8);
+
+        return new Point(hash / 8, hash % 8);
     }
 
     public boolean equals(Point obj) {
