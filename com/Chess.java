@@ -185,8 +185,20 @@ public class Chess {
                      * If Castle is possible, confirm if they want to Castle
                      * List all possible Castles for Piece n
                      */
-                    if (n.type == 'k') {
+                    if (n.type == 'k' && !n.moved && Board.check(n.color, board)) {
+                        /**
+                         * Left
+                         * - Check Each space for null and no check
+                         * - Check for Rook at cRow, 0 and Rook !moves
+                         */
 
+                        /**
+                         * Right
+                         * - Check Each space for null and no check
+                         * - Check for Rook at cRow, 7 and Rook !moves
+                         */
+
+                        // Prompt Castle if Possible
                     }
 
                     // If not a Special Case

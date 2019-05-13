@@ -5,7 +5,7 @@ import java.util.Hashtable;
 
 public class Piece {
 
-    public char type; // p, n, k, r, q, b
+    public char type;
     public char color;
     public boolean passant = false;
     public boolean moved = false;
@@ -53,8 +53,6 @@ public class Piece {
         // If possible moves
         return true;
     }
-
-    // TODO: Add check() to Knight, King, Cardinals, Diagonals
 
     public HashSet<Point> pawnMoves(Board board){
 
@@ -184,13 +182,45 @@ public class Piece {
             // Left 1
             if(col-1 >= 0) {
                 if(playing.get((row-2)*8 + col-1) == null) {
-                    add.add(new Point(row-2, col-1));
+                    // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row-2)*8 + col-1, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row-2)*8 + col-1);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row-2, col-1));
+                    }
+                    // Remove from Destination
+                    playing.remove((row-2)*8 + col-1);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row-2)*8 + col-1, temp);
                 }
             }
             // Right 1
             if(col+1 < 8) {
                 if(playing.get((row-2)*8 + col+1) == null) {
-                    add.add(new Point(row-2, col+1));
+                     // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row-2)*8 + col+1, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row-2)*8 + col+1);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row-2, col+1));
+                    }
+                    // Remove from Destination
+                    playing.remove((row-2)*8 + col+1);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row-2)*8 + col+1, temp);
                 }
             }
         }
@@ -199,13 +229,45 @@ public class Piece {
             // Left 2
             if(col-2 >= 0) {
                 if(playing.get((row-1)*8 + col-2) == null) {
-                    add.add(new Point(row-1, col-2));
+                    // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row-1)*8 + col-2, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row-1)*8 + col-2);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row-1, col-2));
+                    }
+                    // Remove from Destination
+                    playing.remove((row-1)*8 + col-2);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row-1)*8 + col-2, temp);
                 }
             }
             // Right 2
             if(col+2 < 8) {
                 if(playing.get((row-1)*8 + col+2) == null) {
-                    add.add(new Point(row-1, col+2));
+                    // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row-1)*8 + col+2, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row-1)*8 + col+2);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row-1, col+2));
+                    }
+                    // Remove from Destination
+                    playing.remove((row-1)*8 + col+2);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row-1)*8 + col+2, temp);
                 }
             }
         }
@@ -214,13 +276,45 @@ public class Piece {
             // Left 2
             if(col-2 >= 0) {
                 if(playing.get((row+1)*8 + col-2) == null) {
-                    add.add(new Point(row+1, col-2));
+                    // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row+1)*8 + col-2, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row+1)*8 + col-2);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row+1, col-2));
+                    }
+                    // Remove from Destination
+                    playing.remove((row+1)*8 + col-2);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row+1)*8 + col-2, temp);
                 }
             }
             // Right 2
             if(col+2 < 8) {
                 if(playing.get((row+1)*8 + col+2) == null) {
-                    add.add(new Point(row+1, col+2));
+                    // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row+1)*8 + col+2, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row+1)*8 + col+2);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row+1, col+2));
+                    }
+                    // Remove from Destination
+                    playing.remove((row+1)*8 + col+2);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row+1)*8 + col+2, temp);
                 }
             }
         }
@@ -229,13 +323,45 @@ public class Piece {
             // Left 1
             if(col-1 >= 0) {
                 if(playing.get((row+2)*8 + col-1) == null) {
-                    add.add(new Point(row+2, col-1));
+                    // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row+2)*8 + col-1, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row+2)*8 + col-1);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row+2, col-1));
+                    }
+                    // Remove from Destination
+                    playing.remove((row+2)*8 + col-1);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row+2)*8 + col-1, temp);
                 }
             }
             // Right 1
             if(col+1 < 8) {
                 if(playing.get((row+2)*8 + col+1) == null) {
-                    add.add(new Point(row+2, col+1));
+                    // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row+2)*8 + col+1, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row+2)*8 + col+1);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row+2, col+1));
+                    }
+                    // Remove from Destination
+                    playing.remove((row+2)*8 + col+1);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row+2)*8 + col+1, temp);
                 }
             }
         }
@@ -267,49 +393,179 @@ public class Piece {
 
         // Above
         if(row-1 >= 0) {
-            if(playing.get((row-1)*8+col) == null) {
-                add.add(new Point(row-1, col));
+            // Top
+            if(playing.get((row-1)*8 + col) == null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((row-1)*8 + col, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((row-1)*8 + col);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(row-1, col));
+                }
+                // Remove from Destination
+                playing.remove((row-1)*8 + col);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null)
+                    waiting.put((row-1)*8 + col, temp);
             }
             // Upper Left
             if(col-1 >= 0) {
-                if(playing.get((row-1)*8+col-1) == null) {
-                    add.add(new Point(row-1, col-1));
+                if(playing.get((row-1)*8 + col-1) == null) {
+                    // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row-1)*8 + col-1, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row-1)*8 + col-1);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row-1, col-1));
+                    }
+                    // Remove from Destination
+                    playing.remove((row-1)*8 + col-1);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row-1)*8 + col-1, temp);
                 }
             }
             // Upper Right
             if(col+1 < 8) {
-                if(playing.get((row-1)*8+col+1) == null) {
-                    add.add(new Point(row-1, col+1));
+                if(playing.get((row-1)*8 + col+1) == null) {
+                    // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row-1)*8 + col+1, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row-1)*8 + col+1);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row-1, col+1));
+                    }
+                    // Remove from Destination
+                    playing.remove((row-1)*8 + col+1);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row-1)*8 + col+1, temp);
                 }
             }
         }
         // Left
         if(col-1 >= 0) {
-            if(playing.get((row)*8+col-1) == null) {
-                add.add(new Point(row, col-1));
+            if(playing.get((row)*8 + col-1) == null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((row)*8 + col-1, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((row)*8 + col-1);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(row, col-1));
+                }
+                // Remove from Destination
+                playing.remove((row)*8 + col-1);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null)
+                    waiting.put((row)*8 + col-1, temp);
             }
         }
         // Right
         if(col+1 <8) {
-            if(playing.get((row)*8+col+1) == null) {
-                add.add(new Point(row, col+1));
+            if(playing.get((row)*8 + col+1) == null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((row)*8 + col+1, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((row)*8 + col+1);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(row, col+1));
+                }
+                // Remove from Destination
+                playing.remove((row)*8 + col+1);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null)
+                    waiting.put((row)*8 + col+1, temp);
             }
         } 
         // Below
         if(row+1 < 8) {
-            if(playing.get((row+1)*8+col) == null) {
-                add.add(new Point(row+1, col));
+            // Bottom
+            if(playing.get((row+1)*8 + col) == null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((row+1)*8 + col, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((row+1)*8 + col);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(row+1, col));
+                }
+                // Remove from Destination
+                playing.remove((row+1)*8 + col);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null)
+                    waiting.put((row+1)*8 + col, temp);
             }
             // Upper Left
             if(col-1 >= 0) {
-                if(playing.get((row+1)*8+col-1) == null) {
-                    add.add(new Point(row+1, col-1));
+                if(playing.get((row+1)*8 + col-1) == null) {
+                    // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row+1)*8 + col-1, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row+1)*8 + col-1);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row+1, col-1));
+                    }
+                    // Remove from Destination
+                    playing.remove((row+1)*8 + col-1);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row+1)*8 + col-1, temp);
                 }
             }
             // Upper Right
             if(col+1 <8) {
-                if(playing.get((row+1)*8+col+1) == null) {
-                    add.add(new Point(row+1, col+1));
+                if(playing.get((row+1)*8 + col+1) == null) {
+                    // Remove from Original Position
+                    playing.remove((row)*8 + col);
+                    // Put in Destination
+                    playing.put((row+1)*8 + col+1, this);
+                    // Remove from Destination
+                    Piece temp = waiting.remove((row+1)*8 + col+1);
+                    // Check
+                    if(!Board.check(color, board)) {
+                        add.add(new Point(row+1, col+1));
+                    }
+                    // Remove from Destination
+                    playing.remove((row+1)*8 + col+1);
+                    // Put in Original Position
+                    playing.put((row)*8 + col, this);
+                    // Put in Destination
+                    if(temp != null)
+                        waiting.put((row+1)*8 + col+1, temp);
                 }
             }
         }
@@ -348,8 +604,23 @@ public class Piece {
             }
             // Black
             else {
-                add.add(new Point(row, i));
-                if (waiting.get(row * 8 + i) != null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((row)*8 + i, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((row)*8 + i);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(row, i));
+                }
+                // Remove from Destination
+                playing.remove((row)*8 + i);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null) {
+                    waiting.put((row)*8 + i, temp);
                     break;
                 }
             }
@@ -362,8 +633,23 @@ public class Piece {
             }
             // Black
             else {
-                add.add(new Point(row, i));
-                if (waiting.get(row * 8 + i) != null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((row)*8 + i, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((row)*8 + i);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(row, i));
+                }
+                // Remove from Destination
+                playing.remove((row)*8 + i);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null) {
+                    waiting.put((row)*8 + i, temp);
                     break;
                 }
             }
@@ -371,13 +657,28 @@ public class Piece {
         // Above
         for (int i = row - 1; i >= 0; i--) {
             // White
-            if (playing.get(i * 8 + col) != null) {
+            if (playing.get((i)*8 + col) != null) {
                 break;
             }
             // Black
             else {
-                add.add(new Point(i, col));
-                if (waiting.get(i * 8 + col) != null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((i)*8 + col, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((i)*8 + col);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(i, col));
+                }
+                // Remove from Destination
+                playing.remove((i)*8 + col);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null) {
+                    waiting.put((i)*8 + col, temp);
                     break;
                 }
             }
@@ -385,13 +686,28 @@ public class Piece {
         // Below
         for (int i = row + 1; i < 8; i++) {
             // White
-            if (playing.get(i * 8 + col) != null) {
+            if (playing.get((i)*8 + col) != null) {
                 break;
             }
             // Black
             else {
-                add.add(new Point(i, col));
-                if (waiting.get(i * 8 + col) != null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((i)*8 + col, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((i)*8 + col);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(i, col));
+                }
+                // Remove from Destination
+                playing.remove((i)*8 + col);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null) {
+                    waiting.put((i)*8 + col, temp);
                     break;
                 }
             }
@@ -426,30 +742,55 @@ public class Piece {
         // Upper Right
         for(int i = 1; row-i >= 0 && col+i < 8; i++) {
             // White
-            if(playing.get((row-i)*8+col+i) != null) {
+            if(playing.get((row-i)*8 + col+i) != null) {
                 break;
             }
             else {
-                // null
-                add.add(new Point(row-i, col+i));
-                // Black
-                if(waiting.get((row-i)*8+col+i) != null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((row-i)*8 + col+i, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((row-i)*8 + col+i);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(row-i, col+i));
+                }
+                // Remove from Destination
+                playing.remove((row-i)*8 + col+i);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null) {
+                    waiting.put((row-i)*8 + col+i, temp);
                     break;
                 }
             }
         }
-        
         // Upper Left
         for(int i = 1; row-i >= 0 && col-i >= 0; i++) {
             // White
-            if(playing.get((row-i)*8+col-i) != null) {
+            if(playing.get((row-i)*8 + col-i) != null) {
                 break;
             }
             else {
-                // null
-                add.add(new Point(row-i, col-i));
-                // Black
-                if(waiting.get((row-i)*8+col-i) != null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((row-i)*8 + col-i, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((row-i)*8 + col-i);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(row-i, col-i));
+                }
+                // Remove from Destination
+                playing.remove((row-i)*8 + col-i);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null) {
+                    waiting.put((row-i)*8 + col-i, temp);
                     break;
                 }
             }
@@ -457,14 +798,27 @@ public class Piece {
         // Lower Right
         for(int i = 1; row+i < 8 && col+i < 8; i++) {
             // White
-            if(playing.get((row+i)*8+col+i) != null) {
+            if(playing.get((row+i)*8 + col+i) != null) {
                 break;
             }
             else {
-                // null
-                add.add(new Point(row+i, col+i));
-                // Black
-                if(waiting.get((row+i)*8+col+i) != null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((row+i)*8 + col+i, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((row+i)*8 + col+i);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(row+i, col+i));
+                }
+                // Remove from Destination
+                playing.remove((row+i)*8 + col+i);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null) {
+                    waiting.put((row+i)*8 + col+i, temp);
                     break;
                 }
             }
@@ -472,14 +826,27 @@ public class Piece {
         // Lower Left
         for(int i = 1; row+i < 8 && col-i >= 0; i++) {
             // White
-            if(playing.get((row+i)*8+col-i) != null) {
+            if(playing.get((row+i)*8 + col-i) != null) {
                 break;
             }
             else {
-                // null
-                add.add(new Point(row+i, col-i));
-                // Black
-                if(waiting.get((row+i)*8+col-i) != null) {
+                // Remove from Original Position
+                playing.remove((row)*8 + col);
+                // Put in Destination
+                playing.put((row+i)*8 + col-i, this);
+                // Remove from Destination
+                Piece temp = waiting.remove((row+i)*8 + col-i);
+                // Check
+                if(!Board.check(color, board)) {
+                    add.add(new Point(row+i, col-i));
+                }
+                // Remove from Destination
+                playing.remove((row+i)*8 + col-i);
+                // Put in Original Position
+                playing.put((row)*8 + col, this);
+                // Put in Destination
+                if(temp != null) {
+                    waiting.put((row+i)*8 + col-i, temp);
                     break;
                 }
             }
