@@ -68,6 +68,7 @@ This project was done on a whim, running through what I thought was going to be 
 
 Some items I would consider in future versions:
 
+* Tests
 * GUI
 * AI Opponent
 * Removing Player (turns out to almost be useless)
