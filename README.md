@@ -60,7 +60,7 @@ To get a JAR file,
 
 To run a JAR file,
 
-    $: java -jar Chess.jar
+    $: java -jar UnintelligentChess.jar
 
 ## Roadmap
 
