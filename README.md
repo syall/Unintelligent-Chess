@@ -1,4 +1,4 @@
-# Java Chess
+# Unintelligent Chess
 
 Simple Chess implementation with Object Oriented Programming in mind.
 
