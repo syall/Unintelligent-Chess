@@ -1,4 +1,3 @@
-.vscode*
-.chess.code-workspace
+.
 *.json
 *.class
