@@ -1,4 +1,4 @@
-package com;
+package archive.ver3;
 
 public class Point {
 
