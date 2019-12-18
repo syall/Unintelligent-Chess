@@ -2,3 +2,5 @@
 *workspace
 *.json
 *.class
+*.jar
+out/

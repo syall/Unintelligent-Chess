@@ -1,14 +1,14 @@
 all: play
 
-build: com/Chess.java
-	javac com/Chess.java
+build: Main.java
+	javac Main.java -d out/
 
 play: build
-	java com/Chess
+	java -classpath out/ Main
 	make clean
 
-jar: build com/
-	jar cmvf Chess.mf UnintelligentChess.jar com/
+jar: build lib/
+	jar cmvf Chess.mf Unintelligent-Chess.jar lib/
 
 clean:
 	find . -name "*.class" -type f -delete
