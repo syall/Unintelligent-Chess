@@ -1,11 +1,18 @@
 import java.util.Scanner;
 
+import pieces.Board;
+
 public class Main {
 
     private Scanner scanner = new Scanner(System.in);
     private boolean completed = true;
+    private Board board;
     private int turn = 0;
-    
+
+    public Main() {
+        board = new Board();
+    }
+
     private void displayHeader() {
         System.out.println("============ Unintelligent Chess ============");
     }
@@ -20,11 +27,11 @@ public class Main {
     }
 
     private void displayBoard() {
-        System.out.println("Display Board Here.");
+        System.out.println(board.toString());
     }
 
     private void displayPieces() {
-        System.out.println("Display Pieces Here.");
+        System.out.println(board.getPieces());
     }
 
     private void movePiece() {
@@ -66,6 +73,8 @@ public class Main {
             return false;
         if (completed) {
             System.out.println(String.format("Turn %d >", turn));
+            System.out.println(board.toString());
+            System.out.println(board.getPieces());
             completed = false;
         }
         return true;
@@ -74,7 +83,7 @@ public class Main {
     private void displayEndGame() {
         switch (turn) {
         case -100:
-            System.out.println("Players Quit.");
+            System.out.println("Game Quit.");
             break;
         case -1:
             System.out.println("White Player Won!");
