@@ -35,8 +35,31 @@ public class Main {
     }
 
     private void movePiece() {
-        System.out.println("Move Piece.");
-        completed = true;
+        System.out.println("Starting Piece:");
+        System.out.print("Row ");
+        int sr = 0;
+        try {
+            sr = Integer.parseInt(getInput());
+        } catch (Exception e) {
+            System.out.println("Invalid input.");
+            return;
+        }
+        System.out.print("Column ");
+        String sc = getInput();
+        System.out.println("Destination:");
+        System.out.print("Row ");
+        int fr = 0;
+        try {
+            fr = Integer.parseInt(getInput());
+        } catch (Exception e) {
+            System.out.println("Invalid input.");
+            return;
+        }
+        System.out.print("Column ");
+        String fc = getInput();
+        completed = board.move(sr, sc, fr, fc);
+        if (completed)
+            System.out.println("Move piece " + sr + sc + " to " + fr + fc);
     }
 
     private void displayHelp() {
@@ -72,7 +95,7 @@ public class Main {
         if (turn < 0)
             return false;
         if (completed) {
-            System.out.println(String.format("Turn %d >", turn));
+            System.out.println(String.format("\nTurn %d >", turn));
             System.out.println(board.toString());
             System.out.println(board.getPieces());
             completed = false;
