@@ -48,7 +48,7 @@ We have type to determine what moves to add into moves as well as a moved boolea
 
 ## Usage
 
-Fork the Repository at https://github.com/syall/chess.
+Fork the Repository [here](https://github.com/syall/chess).
 
 In a command line,
 
