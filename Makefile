@@ -1,6 +1,6 @@
 all: play
 
-build: Main.java pieces/ lib/
+build: Main.java pieces/
 	javac Main.java -d out/
 
 play: build
