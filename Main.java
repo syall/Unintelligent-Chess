@@ -5,7 +5,7 @@ public class Main {
     private Scanner scanner = new Scanner(System.in);
     private boolean completed = true;
     private int turn = 0;
-
+    
     private void displayHeader() {
         System.out.println("============ Unintelligent Chess ============");
     }
@@ -42,7 +42,13 @@ public class Main {
     }
 
     private void quit() {
-        turn = -100;
+        if (confirmDecision())
+            turn = -100;
+    }
+
+    private boolean confirmDecision() {
+        System.out.println("Are you sure? [Y|_]");
+        return getInput().equals("Y");
     }
 
     private void wrongInput(String input) {
@@ -63,6 +69,26 @@ public class Main {
             completed = false;
         }
         return true;
+    }
+
+    private void displayEndGame() {
+        switch (turn) {
+        case -100:
+            System.out.println("Players Quit.");
+            break;
+        case -1:
+            System.out.println("White Player Won!");
+            break;
+        case -2:
+            System.out.println("Black Player Won!");
+            break;
+        case -3:
+            System.out.println("Stalemate.");
+            break;
+        default:
+            System.out.println("Impossible :(");
+            break;
+        }
     }
 
     private void run() {
@@ -92,6 +118,7 @@ public class Main {
             }
             nextTurn();
         }
+        displayEndGame();
         displayFooter();
     }
 
