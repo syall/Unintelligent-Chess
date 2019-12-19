@@ -1,7 +1,5 @@
 # Unintelligent Chess
 
-[![Run on Repl.it](https://repl.it/badge/github/syall/Unintelligent-Chess)](https://repl.it/github/syall/Unintelligent-Chess)
-
 Simple Chess implementation with Object Oriented Programming in mind.
 
 ## Objects
