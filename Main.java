@@ -35,38 +35,40 @@ public class Main {
     }
 
     private void movePiece() {
-        System.out.println("Starting Piece:");
-        System.out.print("Row ");
-        int sr = 0;
-        try {
-            sr = Integer.parseInt(getInput());
-        } catch (Exception e) {
+        System.out.print("Start Position ");
+        String start = getInput();
+        if (isInvalidMove(start)) {
             System.out.println("Invalid input.");
             return;
         }
-        System.out.print("Column ");
-        String sc = getInput();
-        System.out.println("Destination:");
-        System.out.print("Row ");
-        int fr = 0;
-        try {
-            fr = Integer.parseInt(getInput());
-        } catch (Exception e) {
+        System.out.print("Final Position ");
+        String dest = getInput();
+        if (isInvalidMove(dest)) {
             System.out.println("Invalid input.");
             return;
         }
-        System.out.print("Column ");
-        String fc = getInput();
-        completed = board.move(sr, sc, fr, fc);
+        completed = board.move(start, dest);
         if (completed)
-            System.out.println("Move piece " + sr + sc + " to " + fr + fc);
+            System.out.println("Move piece " + start + " to " + dest);
+    }
+
+    private boolean isInvalidMove(String pos) {
+        if (pos.length() != 2)
+            return true;
+        char row = pos.charAt(0);
+        if (row < '1' || row > '8')
+            return true;
+        char col = pos.charAt(1);
+        if (col < 'a' || col > 'h')
+            return true;
+        return false;
     }
 
     private void displayHelp() {
         System.out.println("Help:");
         System.out.println("- board = Shows the Chess Board");
         System.out.println("- pieces = Shows both Player's Pieces");
-        System.out.println("- move = Move piece from <x, y> to <x, y>");
+        System.out.println("- move = Move piece during turn");
         System.out.println("- help = Help with Usage");
         System.out.println("- quit = Quit the game");
     }

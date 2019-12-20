@@ -56,7 +56,7 @@ public class Board {
         return result;
     }
 
-	public boolean move(int srow, String scol, int frow, String fcol) {
+	public boolean move(String start, String dest) {
         return true;
 	}
 
