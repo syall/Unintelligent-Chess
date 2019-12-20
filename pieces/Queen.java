@@ -1,8 +1,10 @@
 package pieces;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
+@SuppressWarnings("serial")
 public class Queen extends Piece {
 
     public Queen(char color) {
@@ -17,8 +19,13 @@ public class Queen extends Piece {
 
     @Override
     public List<BiFunction<Point, Piece[][], List<Point>>> getMoveMethods() {
-        // TODO Auto-generated method stub
-        return null;
+        return new ArrayList<BiFunction<Point, Piece[][], List<Point>>>() {
+            {
+                add(diagonals);
+                add(horizontals);
+                add(verticals);
+            }
+        };
     }
 
 

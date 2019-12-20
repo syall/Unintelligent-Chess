@@ -21,9 +21,12 @@ public class Rook extends Piece {
 
     @Override
     public List<BiFunction<Point, Piece[][], List<Point>>> getMoveMethods() {
-        return new ArrayList<BiFunction<Point, Piece[][], List<Point>>>() {{
-            add(horizontals);
-        }};
+        return new ArrayList<BiFunction<Point, Piece[][], List<Point>>>() {
+            {
+                add(horizontals);
+                add(verticals);
+            }
+        };
     }
 
 }

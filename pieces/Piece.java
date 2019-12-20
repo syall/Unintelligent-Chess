@@ -40,4 +40,62 @@ public abstract class Piece {
         return moves;
     };
 
+    public BiFunction<Point, Piece[][], List<Point>> verticals = (p, board) -> {
+        ArrayList<Point> moves = new ArrayList<Point>();
+        Piece piece = board[p.row][p.col];
+        for (int i = p.row - 1; i >= 0; i--) {
+            if (board[i][p.col].color == piece.color)
+                break;
+            moves.add(new Point(i, p.col));
+            if (board[i][p.col].color != 'e')
+                break;
+        }
+        for (int i = p.row + 1; i < board.length; i++) {
+            if (board[i][p.col].color == piece.color)
+                break;
+            moves.add(new Point(i, p.col));
+            if (board[i][p.col].color != 'e')
+                break;
+        }
+        return moves;
+    };
+
+    public BiFunction<Point, Piece[][], List<Point>> diagonals = (p, board) -> {
+        ArrayList<Point> moves = new ArrayList<Point>();
+        Piece piece = board[p.row][p.col];
+        // Upper Left
+        for (int i = 1; p.row - i >= 0 && p.col - i >= 0; i++) {
+            if (board[p.row - i][p.col - i].color == piece.color)
+                break;
+            moves.add(new Point(p.row - i, p.col - i));
+            if (board[p.row - i][p.col - i].color != 'e')
+                break;
+        }
+        // Upper Right
+        for (int i = 1; p.row - i >= 0 && p.col + i < 8; i++) {
+            if (board[p.row - i][p.col + i].color == piece.color)
+                break;
+            moves.add(new Point(p.row - i, p.col + i));
+            if (board[p.row - i][p.col + i].color != 'e')
+                break;
+        }
+        // Lower Left
+        for (int i = 1; p.row + i < 8 && p.col - i >= 0; i++) {
+            if (board[p.row + i][p.col - i].color == piece.color)
+                break;
+            moves.add(new Point(p.row + i, p.col - i));
+            if (board[p.row + i][p.col - i].color != 'e')
+                break;
+        }
+        // Lower Right
+        for (int i = 1; p.row + i < 8 && p.col + i < 8; i++) {
+            if (board[p.row + i][p.col + i].color == piece.color)
+                break;
+            moves.add(new Point(p.row + i, p.col + i));
+            if (board[p.row + i][p.col + i].color != 'e')
+                break;
+        }
+        return moves;
+    };
+
 }

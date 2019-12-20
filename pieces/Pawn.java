@@ -1,8 +1,10 @@
 package pieces;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
+@SuppressWarnings("serial")
 public class Pawn extends Piece {
 
     public boolean passant = false;
@@ -20,9 +22,11 @@ public class Pawn extends Piece {
 
     @Override
     public List<BiFunction<Point, Piece[][], List<Point>>> getMoveMethods() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+        return new ArrayList<BiFunction<Point, Piece[][], List<Point>>>() {
+            {
 
+            }
+        };
+    }
 
 }

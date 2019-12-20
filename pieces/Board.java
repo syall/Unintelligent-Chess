@@ -61,7 +61,7 @@ public class Board {
     }
 
     private Point generatePoint(String pos) {
-        return new Point(Character.getNumericValue(pos.charAt(0)), pos.charAt(1) - 'a');
+        return new Point(Character.getNumericValue(pos.charAt(0)) - 1, pos.charAt(1) - 'a');
     }
 
     public boolean move(String start, String dest) {
@@ -77,8 +77,10 @@ public class Board {
                 validMove = true;
                 break;
             }
-        if (!validMove)
+        if (!validMove) {
+            System.out.println("Not a valid move.");
             return false;
+        }
         sPiece.moved = true;
         board[fPoint.row][fPoint.col] = sPiece;
         board[sPoint.row][sPoint.col] = new EmptyPiece('e');
