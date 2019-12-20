@@ -21,7 +21,7 @@ public class Knight extends Piece {
     public List<BiFunction<Point, Piece[][], List<Point>>> getMoveMethods() {
         return new ArrayList<BiFunction<Point, Piece[][], List<Point>>>() {
             {
-
+                add(knight);
             }
         };
     }

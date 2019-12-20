@@ -23,7 +23,7 @@ public class King extends Piece {
     public List<BiFunction<Point, Piece[][], List<Point>>> getMoveMethods() {
         return new ArrayList<BiFunction<Point, Piece[][], List<Point>>>() {
             {
-
+                add(king);
             }
         };
     }

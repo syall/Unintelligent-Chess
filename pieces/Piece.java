@@ -98,4 +98,22 @@ public abstract class Piece {
         return moves;
     };
 
+    public BiFunction<Point, Piece[][], List<Point>> pawn = (p, board) -> {
+        ArrayList<Point> moves = new ArrayList<Point>();
+        Piece piece = board[p.row][p.col];
+        return moves;
+    };
+
+    public BiFunction<Point, Piece[][], List<Point>> king = (p, board) -> {
+        ArrayList<Point> moves = new ArrayList<Point>();
+        Piece piece = board[p.row][p.col];
+        return moves;
+    };
+
+    public BiFunction<Point, Piece[][], List<Point>> knight = (p, board) -> {
+        ArrayList<Point> moves = new ArrayList<Point>();
+        Piece piece = board[p.row][p.col];
+        return moves;
+    };
+
 }
