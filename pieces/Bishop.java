@@ -1,11 +1,11 @@
 package pieces;
 
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 public class Bishop extends Piece {
 
-    public Bishop(char color) {
+    public Bishop(final char color) {
         super(color);
         this.type = 'b';
     }
@@ -16,9 +16,10 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public List<Function<Point, List<Point>>> getMoveMethods() {
+    public List<BiFunction<Point, Piece[][], List<Point>>> getMoveMethods() {
         // TODO Auto-generated method stub
         return null;
     }
+
 
 }

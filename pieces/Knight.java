@@ -1,7 +1,7 @@
 package pieces;
 
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 public class Knight extends Piece {
 
@@ -16,7 +16,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public List<Function<Point, List<Point>>> getMoveMethods() {
+    public List<BiFunction<Point, Piece[][], List<Point>>> getMoveMethods() {
         // TODO Auto-generated method stub
         return null;
     }

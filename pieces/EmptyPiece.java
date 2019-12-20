@@ -1,7 +1,8 @@
 package pieces;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 public class EmptyPiece extends Piece {
 
@@ -17,9 +18,8 @@ public class EmptyPiece extends Piece {
     }
 
     @Override
-    public List<Function<Point, List<Point>>> getMoveMethods() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<BiFunction<Point, Piece[][], List<Point>>> getMoveMethods() {
+        return new ArrayList<BiFunction<Point, Piece[][], List<Point>>>();
     }
 
 }

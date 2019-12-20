@@ -1,5 +1,9 @@
 package pieces;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiFunction;
+
 public class Board {
 
     private Piece[][] board;
@@ -56,8 +60,29 @@ public class Board {
         return result;
     }
 
-	public boolean move(String start, String dest) {
+    private Point generatePoint(String pos) {
+        return new Point(Character.getNumericValue(pos.charAt(0)), pos.charAt(1) - 'a');
+    }
+
+    public boolean move(String start, String dest) {
+        Point sPoint = generatePoint(start);
+        Piece sPiece = board[sPoint.row][sPoint.col];
+        List<Point> moves = new ArrayList<Point>();
+        for (BiFunction<Point, Piece[][], List<Point>> f : sPiece.getMoveMethods())
+            moves.addAll(f.apply(sPoint, board));
+        Point fPoint = generatePoint(dest);
+        boolean validMove = false;
+        for (Point p : moves)
+            if (fPoint.equals(p)) {
+                validMove = true;
+                break;
+            }
+        if (!validMove)
+            return false;
+        sPiece.moved = true;
+        board[fPoint.row][fPoint.col] = sPiece;
+        board[sPoint.row][sPoint.col] = new EmptyPiece('e');
         return true;
-	}
+    }
 
 }
