@@ -1,6 +1,8 @@
 package pieces;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.function.Function;
 
 public abstract class Piece {
 
@@ -12,6 +14,8 @@ public abstract class Piece {
         this.color = color;
     }
 
-    abstract public String toString();
+    public abstract String toString();
+
+    public abstract List<Function<Point, List<Point>>> getMoveMethods();
 
 }
