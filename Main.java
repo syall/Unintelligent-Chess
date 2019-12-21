@@ -37,13 +37,13 @@ public class Main {
     private void movePiece() {
         System.out.print("Start Position ");
         String start = getInput();
-        if (isInvalidMove(start)) {
+        if (!isValidMove(start) || !isPlayerPiece(start)) {
             System.out.println("Invalid input.");
             return;
         }
         System.out.print("Final Position ");
         String dest = getInput();
-        if (isInvalidMove(dest)) {
+        if (!isValidMove(dest) || isPlayerPiece(dest)) {
             System.out.println("Invalid input.");
             return;
         }
@@ -52,14 +52,21 @@ public class Main {
             System.out.println("Move piece " + start + " to " + dest);
     }
 
-    private boolean isInvalidMove(String pos) {
+    private boolean isValidMove(String pos) {
         if (pos.length() != 2)
-            return true;
+            return false;
         char row = pos.charAt(0);
         if (row < '1' || row > '8')
-            return true;
+            return false;
         char col = pos.charAt(1);
         if (col < 'a' || col > 'h')
+            return false;
+        return true;
+    }
+
+    private boolean isPlayerPiece(String pos) {
+        char color = turn % 2 == 0 ? 'w' : 'b';
+        if (board.getPieceColor(pos) == color)
             return true;
         return false;
     }

@@ -16,11 +16,11 @@ public class Board {
     }
 
     private Piece generatePiece(int row, int col) {
-        char color = row < 2 ? 'w' : row > 5 ? 'b' : 'e';
+        char color = row < 2 ? 'w' : 'b';
         if (row == 1 || row == 6)
             return new Pawn(color);
         else if (row > 1 && row < 6)
-            return new EmptyPiece(color);
+            return new EmptyPiece('e');
         else if (col == 0 || col == 7)
             return new Rook(color);
         else if (col == 1 || col == 6)
@@ -58,6 +58,11 @@ public class Board {
         }
         result += header;
         return result;
+    }
+
+    public char getPieceColor(String pos) {
+        Point p = generatePoint(pos);
+        return board[p.row][p.col].color;
     }
 
     private Point generatePoint(String pos) {
