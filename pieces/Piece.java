@@ -124,11 +124,11 @@ public abstract class Piece {
             moves.add(new Point(p.row + 1, p.col + 1));
         if (p.row - 1 >= 0 && board[p.row - 1][p.col].color != piece.color)
             moves.add(new Point(p.row - 1, p.col));
-        if (p.row + 1 < 8 && board[p.row + 1][p.col - 1].color != piece.color)
+        if (p.row + 1 < 8 && board[p.row + 1][p.col].color != piece.color)
             moves.add(new Point(p.row + 1, p.col));
         if (p.col - 1 >= 0 && board[p.row][p.col - 1].color != piece.color)
             moves.add(new Point(p.row, p.col - 1));
-        if (p.col + 1 < 8 && board[p.row - 1][p.col + 1].color != piece.color)
+        if (p.col + 1 < 8 && board[p.row][p.col + 1].color != piece.color)
             moves.add(new Point(p.row, p.col + 1));
         return moves;
     };
