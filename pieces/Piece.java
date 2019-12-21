@@ -120,7 +120,7 @@ public abstract class Piece {
             moves.add(new Point(p.row - 1, p.col + 1));
         if (p.row + 1 < 8 && p.col - 1 >= 0 && board[p.row + 1][p.col - 1].color != piece.color)
             moves.add(new Point(p.row + 1, p.col - 1));
-        if (p.row + 1 >= 0 && p.col + 1 >= 0 && board[p.row + 1][p.col + 1].color != piece.color)
+        if (p.row + 1 < 8 && p.col + 1 < 8 && board[p.row + 1][p.col + 1].color != piece.color)
             moves.add(new Point(p.row + 1, p.col + 1));
         if (p.row - 1 >= 0 && board[p.row - 1][p.col].color != piece.color)
             moves.add(new Point(p.row - 1, p.col));
