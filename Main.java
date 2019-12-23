@@ -50,6 +50,11 @@ public class Main {
         completed = board.move(start, dest);
         if (completed)
             System.out.println("Move piece " + start + " to " + dest);
+
+        if (board.getBlackKing() == null)
+            turn = -1;
+        else if (board.getWhiteKing() == null)
+            turn = -2;
     }
 
     private boolean isValidMove(String pos) {
@@ -96,7 +101,7 @@ public class Main {
     }
 
     private void nextTurn() {
-        if (completed)
+        if (turn >= 0 && completed)
             turn++;
     }
 

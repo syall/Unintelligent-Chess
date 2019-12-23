@@ -7,6 +7,8 @@ import java.util.function.BiFunction;
 public class Board {
 
     private Piece[][] board;
+    private Point blackKing = new Point(7, 3);
+    private Point whiteKing = new Point(0, 4);
 
     public Board() {
         board = new Piece[8][8];
@@ -86,10 +88,45 @@ public class Board {
             System.out.println("Not a valid move.");
             return false;
         }
+
+
+        if (sPiece.type == 'k') {
+            System.out.println(blackKing.toString());
+            System.out.println(whiteKing.toString());
+        }
+
+        if (fPoint.equals(blackKing))
+            blackKing = null;
+        else if (fPoint.equals(whiteKing))
+            whiteKing = null;
+
+        if (sPiece.type == 'k') {
+            System.out.println(blackKing.toString());
+            System.out.println(whiteKing.toString());
+        }
+
+        if (blackKing != null && sPoint.equals(blackKing))
+            blackKing = fPoint;
+        else if (whiteKing != null && sPoint.equals(whiteKing))
+            whiteKing = fPoint;
+
+        if (sPiece.type == 'k') {
+            System.out.println(blackKing.toString());
+            System.out.println(whiteKing.toString());
+        }
+
         sPiece.moved = true;
         board[fPoint.row][fPoint.col] = sPiece;
         board[sPoint.row][sPoint.col] = new EmptyPiece('e');
         return true;
+    }
+
+    public Point getBlackKing() {
+        return blackKing;
+    }
+
+    public Point getWhiteKing() {
+        return whiteKing;
     }
 
 }
