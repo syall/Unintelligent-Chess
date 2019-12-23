@@ -2,3 +2,4 @@ out/
 .metadata/
 .tooling/
 jdt*
+*.jar

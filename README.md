@@ -2,77 +2,51 @@
 
 Simple Chess implementation with Object Oriented Programming in mind.
 
-## Objects
+Not all of the complexity of the Chess game is implemented (En Passant, Check, Promotion) but overall not a concern as the focus was to demonstrate Object Oriented Principles.
+
+## Classes
 
 ### Board
 
-The Board will hold the Players and be responsible for checking with check().
-
-* Turn Count
-* Players
-* Passant
-* static check()
-
-### Player
-
-Players will have their Pieces.
-
-* Color
-* HashTable of Piece
-* canMove
+The Board holds the 2D array of all the pieces as well as the location of both kings, acting as a Data Structure except for one method that implements moving the piece.
 
 ### Piece
 
-We have type to determine what moves to add into moves as well as a moved boolean.
+Each piece inherits from the Piece class, and each piece will define the type and the methods to generate moves.
 
-* Type
-* Color
-* Passant
-* Moved
-* HashSet of Points for Possible Moves
-* getMoves() and auxiliary functions
+These "move methods" are Java BiFunctions (lambdas) that specify a certain set of Points that a piece can reach:
+
+* horizontals
+* verticals
+* diagonals
+* pawn
+* knight
+* king
+
+These are added to a List returned by each Piece-implemented version of getMoveMethods, `List<BiFunction<Point, Piece[][], List<Point>>>`.
+
+### Point
+
+The Point class is a simple generic class that holds a row and col field, and is manipulated by the board to validate moves.
 
 ## Structure
 
-    Turn Loop (Board)
-    {
-        Input Loop (Player)
-        {
-            Move (Piece)
-        }
-        Reset Player
-        Check Condition
-    }
+The structure of the Game Loop is found in Main (named conveniently to run on repl.it) and will only update to the next turn when the turn is complete.
 
 ## Usage
 
-Fork the Repository [here](https://github.com/syall/chess).
+In the command line, running `make` will build, run, and clean from the Makefile.
 
-In a command line,
+To create a JAR, run `make jar`.
 
-    $: make
+To run a JAR file, run `java -jar Unintelligent-Chess.jar`.
 
-will build, run, and clean from the Makefile
+## Personal Notes
 
-To get a JAR file,
+This project was done on a whim, as I had never properly used the Object Oriented Paradigm to separate concerns (as opposed to procedural and functional programming).
 
-    $: make jar
+As a personal project, I found that Java might not have been the good choice, as there was no easy way to iterate or prototype the project due to the constraints of Object Oriented Programming.
 
-To run a JAR file,
+Each different version is in the archive folder, as the refactoring was so drastic, it was faster to rewrite all of the classes.
 
-    $: java -jar UnintelligentChess.jar
-
-## Roadmap
-
-This project was done on a whim, running through what I thought was going to be simple, but turned out to be more complicated than I thought.
-
-Some items I would consider in future versions:
-
-* Tests
-* GUI
-* AI Opponent
-* Removing Player (turns out to almost be useless)
-* Optimization on check()
-  * Based on Last Move
-  * Single Array instead of HashTable
-* Networking? (Never did this in Java before)
+The difficulty of displaying the user interface of the game also was a blocker, as learning how to use a traditional GUI interface such as Java Swing or FX would be too much overhead for a small project I thought of on a whim.

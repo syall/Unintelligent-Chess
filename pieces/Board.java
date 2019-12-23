@@ -89,31 +89,15 @@ public class Board {
             return false;
         }
 
-
-        if (sPiece.type == 'k') {
-            System.out.println(blackKing.toString());
-            System.out.println(whiteKing.toString());
-        }
-
         if (fPoint.equals(blackKing))
             blackKing = null;
         else if (fPoint.equals(whiteKing))
             whiteKing = null;
 
-        if (sPiece.type == 'k') {
-            System.out.println(blackKing.toString());
-            System.out.println(whiteKing.toString());
-        }
-
         if (blackKing != null && sPoint.equals(blackKing))
             blackKing = fPoint;
         else if (whiteKing != null && sPoint.equals(whiteKing))
             whiteKing = fPoint;
-
-        if (sPiece.type == 'k') {
-            System.out.println(blackKing.toString());
-            System.out.println(whiteKing.toString());
-        }
 
         sPiece.moved = true;
         board[fPoint.row][fPoint.col] = sPiece;
